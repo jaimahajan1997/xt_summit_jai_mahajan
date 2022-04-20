@@ -1,11 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-/*
-npm install --save web3
-npm i --save webpack@4.46.0    
-npm i --save react-scripts@4.0.3
-SKIP_PREFLIGHT_CHECK=true in .env
-*/
+
 let Web3 = require("web3");
 let web3 = new Web3(new Web3.providers.HttpProvider("HTTP://127.0.0.1:7545"));
 
@@ -25,20 +20,20 @@ const BalanceComponent = ({
         alt="abc ltd QR code"
       />
       <p>{`${name1} Address=${to} ${
-        showBalance ? `, Balance:${address1}` : ""
+        showBalance ? `, Balance:${address1} ETH` : ""
       }`}</p>
       <p>{`${name2} Address=${from} ${
-        showBalance ? `, Balance:${address2}` : ""
+        showBalance ? `, Balance:${address2} ETH` : ""
       }`}</p>
     </>
   );
 };
 
-const getAndUpdateBalance=(address,changeState)=>{
+const getAndUpdateBalance = (address, changeState) => {
   web3.eth
-      .getBalance(address)
-      .then((result) => changeState(web3.utils.fromWei(result, "ether")));
-}
+    .getBalance(address)
+    .then((result) => changeState(web3.utils.fromWei(result, "ether")));
+};
 
 function App() {
   const [user1, changeState1] = useState("");
@@ -50,8 +45,8 @@ function App() {
   const name1 = "Customer";
   const name2 = "ABC Account";
   useEffect(() => {
-    getAndUpdateBalance(from,changeState1)
-    getAndUpdateBalance(to,changeState2)
+    getAndUpdateBalance(from, changeState1);
+    getAndUpdateBalance(to, changeState2);
     setShowBalance(false);
   }, []);
   const transfer = (from, to, value) => {
@@ -60,11 +55,11 @@ function App() {
       to,
       value: web3.utils.toWei(value, "Ether"),
     });
-    updateBalance(from, to,false)
+    updateBalance(from, to, false);
   };
-  const updateBalance = (from, to,showBalance) => {
-    getAndUpdateBalance(from,changeState1)
-    getAndUpdateBalance(to,changeState2)
+  const updateBalance = (from, to, showBalance) => {
+    getAndUpdateBalance(from, changeState1);
+    getAndUpdateBalance(to, changeState2);
     setShowBalance(showBalance);
   };
 
@@ -81,8 +76,12 @@ function App() {
         name2={name2}
         showBalance={showBalance}
       />
-      <button className="pay-button" onClick={() => transfer(from, to, value)}>Pay ABC Ltd</button>
-      <button onClick={() => updateBalance(from, to,true)}>Update Balances</button>
+      <button className="pay-button" onClick={() => transfer(from, to, value)}>
+        Pay ABC Ltd
+      </button>
+      <button onClick={() => updateBalance(from, to, true)}>
+        Update Balances
+      </button>
     </div>
   );
 }
