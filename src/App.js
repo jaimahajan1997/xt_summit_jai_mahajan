@@ -34,6 +34,12 @@ const BalanceComponent = ({
   );
 };
 
+const getAndUpdateBalance=(address,changeState)=>{
+  web3.eth
+      .getBalance(address)
+      .then((result) => changeState(web3.utils.fromWei(result, "ether")));
+}
+
 function App() {
   const [user1, changeState1] = useState("");
   const [user2, changeState2] = useState("");
@@ -44,12 +50,8 @@ function App() {
   const name1 = "Customer";
   const name2 = "ABC Account";
   useEffect(() => {
-    web3.eth
-      .getBalance(from)
-      .then((result) => changeState1(web3.utils.fromWei(result, "ether")));
-    web3.eth
-      .getBalance(to)
-      .then((result) => changeState2(web3.utils.fromWei(result, "ether")));
+    getAndUpdateBalance(from,changeState1)
+    getAndUpdateBalance(to,changeState2)
     setShowBalance(false);
   }, []);
   const transfer = (from, to, value) => {
@@ -58,22 +60,12 @@ function App() {
       to,
       value: web3.utils.toWei(value, "Ether"),
     });
-    web3.eth
-      .getBalance(from)
-      .then((result) => changeState1(web3.utils.fromWei(result, "ether")));
-    web3.eth
-      .getBalance(to)
-      .then((result) => changeState2(web3.utils.fromWei(result, "ether")));
-    setShowBalance(false);
+    updateBalance(from, to,false)
   };
-  const updateBalance = (from, to) => {
-    web3.eth
-      .getBalance(from)
-      .then((result) => changeState1(web3.utils.fromWei(result, "ether")));
-    web3.eth
-      .getBalance(to)
-      .then((result) => changeState2(web3.utils.fromWei(result, "ether")));
-    setShowBalance(true);
+  const updateBalance = (from, to,showBalance) => {
+    getAndUpdateBalance(from,changeState1)
+    getAndUpdateBalance(to,changeState2)
+    setShowBalance(showBalance);
   };
 
   return (
@@ -90,7 +82,7 @@ function App() {
         showBalance={showBalance}
       />
       <button className="pay-button" onClick={() => transfer(from, to, value)}>Pay ABC Ltd</button>
-      <button onClick={() => updateBalance(from, to)}>Update Balances</button>
+      <button onClick={() => updateBalance(from, to,true)}>Update Balances</button>
     </div>
   );
 }
