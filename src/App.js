@@ -18,31 +18,17 @@ const BalanceComponent = ({
   to,
   showBalance,
 }) => {
-  const [addressBalance1, changeBalance1] = useState({
-    name: name1,
-    balance: "",
-  });
-  const [addressBalance2, changeBalance2] = useState({
-    name: name2,
-    balance: "",
-  });
-  if (address1 !== addressBalance1.balance) {
-    changeBalance1({ ...addressBalance1, balance: address1 });
-  }
-  if (address2 !== addressBalance2.balance) {
-    changeBalance2({ ...addressBalance2, balance: address2 });
-  }
   return (
     <>
       <img
         src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${to}&choe=UTF-8`}
-        alt="abc ltd qr code"
+        alt="abc ltd QR code"
       />
-      <p>{`${addressBalance2?.name} Address=${to} ${
-        showBalance ? `, Balance:${addressBalance2?.balance}` : ""
+      <p>{`${name1} Address=${to} ${
+        showBalance ? `, Balance:${address1}` : ""
       }`}</p>
-      <p>{`${addressBalance1?.name} Address=${from} ${
-        showBalance ? `, Balance:${addressBalance1?.balance}` : ""
+      <p>{`${name2} Address=${from} ${
+        showBalance ? `, Balance:${address2}` : ""
       }`}</p>
     </>
   );
@@ -103,7 +89,7 @@ function App() {
         name2={name2}
         showBalance={showBalance}
       />
-      <button onClick={() => transfer(from, to, value)}>Take the Shot!</button>
+      <button className="pay-button" onClick={() => transfer(from, to, value)}>Pay ABC Ltd</button>
       <button onClick={() => updateBalance(from, to)}>Update Balances</button>
     </div>
   );
