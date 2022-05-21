@@ -19,11 +19,11 @@ const BalanceComponent = ({
         src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${to}&choe=UTF-8`}
         alt="abc ltd QR code"
       />
-      <p>{`${name1} Address=${to} ${
-        showBalance ? `, Balance:${address1} ETH` : ""
-      }`}</p>
-      <p>{`${name2} Address=${from} ${
+      <p>{`${name2} Address=${to} ${
         showBalance ? `, Balance:${address2} ETH` : ""
+      }`}</p>
+      <p>{`${name1} Address=${from} ${
+        showBalance ? `, Balance:${address1} ETH` : ""
       }`}</p>
     </>
   );
@@ -39,8 +39,8 @@ function App() {
   const [user1, changeState1] = useState("");
   const [user2, changeState2] = useState("");
   const [showBalance, setShowBalance] = useState(false);
-  const from = "0x42D5710d1c9616DA253E68814Bc5430dCD6DC01E";
-  const to = "0x0d72D45878A69Ca89C4b4f1a949c54d975433A0D";
+  const to = "0x42D5710d1c9616DA253E68814Bc5430dCD6DC01E";
+  const from = "0x0d72D45878A69Ca89C4b4f1a949c54d975433A0D";
   const value = "1";
   const name1 = "Customer";
   const name2 = "ABC Account";
