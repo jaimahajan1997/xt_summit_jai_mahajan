@@ -17,7 +17,7 @@ const BalanceComponent = ({
     <>
       <img
         src={`https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=${to}&choe=UTF-8`}
-        alt="abc ltd QR code"
+        alt="ABC Ltd QR code"
       />
       <p>{`${name2} Address=${to} ${
         showBalance ? `, Balance:${address2} ETH` : ""
