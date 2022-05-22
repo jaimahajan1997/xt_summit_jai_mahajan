@@ -45,9 +45,7 @@ function App() {
   const name1 = "Customer";
   const name2 = "ABC Account";
   useEffect(() => {
-    getAndUpdateBalance(from, changeState1);
-    getAndUpdateBalance(to, changeState2);
-    setShowBalance(false);
+    updateBalance(from, to, false);
   }, []);
   const transfer = (from, to, value) => {
     web3.eth.sendTransaction({
